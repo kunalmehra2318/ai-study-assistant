@@ -21,7 +21,7 @@ VISION_MODEL = os.getenv("GROQ_VISION_MODEL", "qwen/qwen3.8-27b")      # reads s
 
 MAX_FILE_MB = 50                                      # matches "Maximum file size: 50 MB" in the UI
 MIN_TEXT_CHARS = 200                                  # below this, the PDF is treated as scanned
-MAX_TEXT_CHARS = int(os.getenv("MAX_TEXT_CHARS", "30000"))   # text sent to the notes model
+MAX_TEXT_CHARS = 12000  # text sent to the notes model
 MAX_OCR_PAGES = int(os.getenv("MAX_OCR_PAGES", "15"))        # scanned pages to read
 PAGES_PER_REQUEST = int(os.getenv("PAGES_PER_REQUEST", "1"))   # images per vision request
 
@@ -132,7 +132,7 @@ def make_notes(prompt: str, document_text: str) -> str:
             "content": f"{prompt}\n\n--- DOCUMENT TEXT ---\n{document_text[:MAX_TEXT_CHARS]}",
         },
     ]
-    return ask_groq(MODEL, messages, max_tokens=4000)
+    return ask_groq(MODEL, messages, max_tokens=2000)
 
 
 # ---------------------------------------------------------------------------
